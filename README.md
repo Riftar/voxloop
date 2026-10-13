@@ -37,12 +37,19 @@ mic frames (20ms) -> Vad --speech_start--> [barge-in? cut playback NOW]
 `speech_short.wav`, `speech_long.wav`, `silence.wav`, `noise.wav`
 (sub-threshold hum), `convo_two_turns.wav` (speech/pause/speech/pause).
 
+`fixtures/speech/` — eight real-speech utterances (TTS-generated, no human
+voice) with a `manifest.json` carrying transcripts, expected segments, and
+provenance. Used by `tests/test_speech.py`: one-turn detection per
+utterance, short-utterance edge, mid-sentence pause behavior (split vs
+bridged by hangover length), and barge-in on real speech.
+
 ## Layout
 
 - `vad.py` — RMS + energy VAD (attack/hangover, frame events)
 - `engine.py` — `TurnEngine` state machine + synthetic PCM generators
-- `scripts/make_fixtures.py` — builds the WAV fixtures
-- `tests/test_all.py` — 12 offline tests
+- `scripts/make_fixtures.py` — builds the synthetic WAV fixtures
+- `tests/test_all.py` — 12 offline tests (synthetic audio)
+- `tests/test_speech.py` — 6 offline tests (real-speech fixtures)
 - `PLAN.md` — problem, goals, 3 checkpoints, rollback
 
 ## Honest ceiling
